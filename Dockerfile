@@ -17,12 +17,12 @@ RUN apt-get install -y openssh-server && mkdir /var/run/sshd
 RUN mkdir -p /var/jenkins_home && chown -R jenkins /var/jenkins_home
 ADD init.groovy /tmp/WEB-INF/init.groovy
 RUN cd /tmp && zip -g /usr/share/jenkins/jenkins.war WEB-INF/init.groovy
-USER jenkins
 
 #add chef client to give access to install knife etc..
 RUN cd /tmp/ && curl -O -L http://www.opscode.com/chef/install.sh
 RUN cd /tmp/ sh install.sh
 
+USER jenkins
 # VOLUME /var/jenkins_home - bind this in via -v if you want to make this persistent.
 ENV JENKINS_HOME /var/jenkins_home
 
